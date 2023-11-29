@@ -1,0 +1,32 @@
+﻿@page "/dbtest"
+@using MintStores.Data
+@using MintStores.Models
+
+@inject DataService DataService
+<PageTitle>My Data</PageTitle>
+<h3>My Data</h3>
+
+@if (data != null)
+{
+    <ul>
+        @foreach (var item in data)
+        {
+            <li>@item.CategoryId - @item.CategoryName</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No data available.</p>
+}
+
+@code {
+    private IEnumerable<Category> data;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        data = await DataService.GetData();
+        
+    }
+}
