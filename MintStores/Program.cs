@@ -6,18 +6,22 @@ namespace MintStores
 {
     public class Program
     {
-        
-        
-        
+
+        public static void ConfigureServices(IServiceCollection services)
+        {
+            services.AddRazorPages();
+            services.AddServerSideBlazor();
+            services.AddSingleton<WeatherForecastService>();
+            services.AddScoped<DataService>();
+        }
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddRazorPages();
-            builder.Services.AddServerSideBlazor();
-            builder.Services.AddSingleton<WeatherForecastService>();
-            builder.Services.AddScoped<DataService>();
+            ConfigureServices(builder.Services);
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
