@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintStores", "MintStores\MintStores.csproj", "{E9AEA084-EFFB-4FF0-B541-25D086D22AD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintStores", "MintStores\MintStores.csproj", "{E9AEA084-EFFB-4FF0-B541-25D086D22AD6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintStores.Core", "MintStores.Core\MintStores.Core.csproj", "{A87D12EF-ED09-4DBB-8965-48098C34CAAE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintStores.Infrastructure", "MintStores.Infrastructure\MintStores.Infrastructure.csproj", "{430C5824-9B8D-417B-9B62-D8984794EF4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{E9AEA084-EFFB-4FF0-B541-25D086D22AD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9AEA084-EFFB-4FF0-B541-25D086D22AD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9AEA084-EFFB-4FF0-B541-25D086D22AD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A87D12EF-ED09-4DBB-8965-48098C34CAAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A87D12EF-ED09-4DBB-8965-48098C34CAAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A87D12EF-ED09-4DBB-8965-48098C34CAAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A87D12EF-ED09-4DBB-8965-48098C34CAAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{430C5824-9B8D-417B-9B62-D8984794EF4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{430C5824-9B8D-417B-9B62-D8984794EF4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{430C5824-9B8D-417B-9B62-D8984794EF4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{430C5824-9B8D-417B-9B62-D8984794EF4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

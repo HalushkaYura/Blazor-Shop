@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using MintStores.Core;
+using MintStores.Core.Interfaces.DataRepositories;
+using MintStores.Core.Model;
+using MintStores.Core.Services;
 using MintStores.Data;
-using MintStores.DataControllers;
-using MintStores.Interfaces;
-using MintStores.Interfaces.DataController;
-using MintStores.Interfaces.Services;
-using MintStores.Models;
+using MintStores.Infrastructure.DataRepositories;
 using MintStores.Services;
 
 namespace MintStores
@@ -20,15 +18,15 @@ namespace MintStores
             services.AddSingleton<WeatherForecastService>();
 
             //DataControllers
-            services.AddScoped<IDataController<Brand>, BrandDataController>();
-            services.AddScoped<IDataController<Category>, CategoryDataController>();
-            services.AddScoped<IDataController<Customer>, CustomerDataController>();
-            services.AddScoped<IDataController<Order>, OrderDataController>();
-            services.AddScoped<IDataController<OrderItem>, OrderItemDataController>();
-            services.AddScoped<IDataController<Product>, ProductDataController>();
-            services.AddScoped<IDataController<Staff>, StaffDataController>();
-            services.AddScoped<IDataController<Store>, StoreDataController>();
-            services.AddScoped<IProductDataController, ProductDataController>();
+            services.AddScoped<IBaseDataRepository<Brand>, BrandDataRepository>();
+            services.AddScoped<IBaseDataRepository<Category>, CategoryDataRepository>();
+            services.AddScoped<IBaseDataRepository<Customer>, CustomerDataRepository>();
+            services.AddScoped<IBaseDataRepository<Order>, OrderDataRepository>();
+            services.AddScoped<IBaseDataRepository<OrderItem>, OrderItemDataRepository>();
+            services.AddScoped<IBaseDataRepository<Product>, ProductDataRepository>();
+            services.AddScoped<IBaseDataRepository<Staff>, StaffDataRepository>();
+            services.AddScoped<IBaseDataRepository<Store>, StoreDataRepository>();
+            services.AddScoped<IProductDataRepository, ProductDataRepository>();
 
             // Servise
             services.AddScoped<IBaseService<Brand>, BaseService<Brand>>();
