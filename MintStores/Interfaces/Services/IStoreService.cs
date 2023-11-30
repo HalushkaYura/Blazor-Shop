@@ -1,6 +1,6 @@
 ﻿using MintStores.Models;
 
-namespace MintStores.Services.StoreService
+namespace MintStores.Interfaces.Services
 {
     public interface IStoreService
     {

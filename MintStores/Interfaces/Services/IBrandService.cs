@@ -1,6 +1,6 @@
 ﻿using MintStores.Models;
 
-namespace MintStores.Services.BrandService
+namespace MintStores.Interfaces.Services
 {
     public interface IBrandService
     {

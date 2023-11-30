@@ -1,15 +1,17 @@
-﻿using MintStores.Models;
+﻿using MintStores.Interfaces;
+using MintStores.Interfaces.Services;
+using MintStores.Models;
 
-namespace MintStores.Services.OrderService
+namespace MintStores.Services
 {
-    public class OrderService : IBaseService<Order>, IOrderService
+    public class OrderService :  IOrderService
     {
-        public Order CreateItem(Order newItem)
+        public bool CreateItem(Order newItem)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteItem(int id)
+        public bool DeleteItem(int id)
         {
             throw new NotImplementedException();
         }
@@ -24,7 +26,12 @@ namespace MintStores.Services.OrderService
             throw new NotImplementedException();
         }
 
-        public Order UpdateItem(int id, Order updateItem)
+        public Order GetLastItem()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateItem(int id, Order updateItem)
         {
             throw new NotImplementedException();
         }

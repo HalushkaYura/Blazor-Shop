@@ -1,8 +1,10 @@
-﻿using MintStores.Models;
+﻿using MintStores.Interfaces;
+using MintStores.Interfaces.Services;
+using MintStores.Models;
 
-namespace MintStores.Services.StaffService
+namespace MintStores.Services
 {
-    public class StaffService : IBaseService<Staff>, IStaffService
+    public class StaffService : IStaffService
     {
         public Staff CreateItem(Staff newItem)
         {
@@ -20,6 +22,11 @@ namespace MintStores.Services.StaffService
         }
 
         public Staff GetItemById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Staff GetLastItem()
         {
             throw new NotImplementedException();
         }

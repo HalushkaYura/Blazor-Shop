@@ -1,50 +1,74 @@
-﻿using MintStores.Interfaces;
-using System.Data.SqlClient;
-using System.Data;
-using Dapper;
+﻿using Dapper;
 using MintStores.Constants;
 using MintStores.Models;
+using System.Data;
 
 namespace MintStores.DataControllers
 {
-    public class CategoryDataController : IDataController
+    public class CategoryDataController : BaseDataController<Category>
     {
-        private readonly string _connectionString;
 
-        public CategoryDataController(IConfiguration configuration)
+        public CategoryDataController(IConfiguration configuration) : base(configuration)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+
         }
 
-        public bool CreateItem<T>(T newItem)
+        public override IEnumerable<Category> GetAllItems()
         {
-            throw new NotImplementedException();
+            using var connection = GetConnection();
+            connection.Open();
+
+            return connection.Query<Category>(DataBaseConstants.GetAllCategories, commandType: CommandType.StoredProcedure);
+        }
+        public override Category GetLastItem()
+        {
+            using var connection = GetConnection();
+            connection.Open();
+
+            var row = connection.QueryFirstOrDefault<Category>(
+                DataBaseConstants.GetLastCategory,
+                commandType: CommandType.StoredProcedure);
+
+            return row;
+        }
+        public override Category GetItemById(int id)
+        {
+            using var connection = GetConnection();
+            connection.Open();
+
+            return connection.QueryFirstOrDefault<Category>(DataBaseConstants.GetCategoryById, new { Id = id }, commandType: CommandType.StoredProcedure);
         }
 
-        public bool DeleteItem<T>(int id)
+        public override bool CreateItem(Category newItem)
         {
-            throw new NotImplementedException();
+            using var connection = GetConnection();
+            connection.Open();
+
+            var rows = connection.Execute(DataBaseConstants.CreateCategory, new { newItem.CategoryName }, commandType: CommandType.StoredProcedure);
+            return rows > 0;
         }
 
-        public IEnumerable<T> GetAllItems<T>()
+        public override bool UpdateItem(int id, Category updatedItem)
         {
-            throw new NotImplementedException();
+            using var connection = GetConnection();
+            connection.Open();
+
+            // Assuming you have an UPDATE stored procedure for categories
+            var rows = connection.Execute(DataBaseConstants.UpdateCategory, new { Id = id, updatedItem.CategoryName }, commandType: CommandType.StoredProcedure);
+
+            return rows > 0;
         }
 
-        public T GetItemById<T>(int id)
+        public override bool DeleteItem(int id)
         {
-            throw new NotImplementedException();
+            using var connection = GetConnection();
+            connection.Open();
+
+            var rows = connection.Execute(DataBaseConstants.DeleteCategory, new { Id = id }, commandType: CommandType.StoredProcedure);
+            return rows > 0;
         }
 
-        public T UpdateItem<T>(int id, T updatedItem)
-        {
-            throw new NotImplementedException();
-        }
 
-        private SqlConnection GetConnection()
-        {
-            return new SqlConnection(_connectionString);
-        }
 
 
     }

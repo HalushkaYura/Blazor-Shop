@@ -1,6 +1,6 @@
 ﻿using MintStores.Models;
 
-namespace MintStores.Services.StaffService
+namespace MintStores.Interfaces.Services
 {
     public interface IStaffService
     {

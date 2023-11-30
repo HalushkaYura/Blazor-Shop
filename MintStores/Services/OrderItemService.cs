@@ -1,8 +1,10 @@
-﻿using MintStores.Models;
+﻿using MintStores.Interfaces;
+using MintStores.Interfaces.Services;
+using MintStores.Models;
 
-namespace MintStores.Services.OrderItemService
+namespace MintStores.Services
 {
-    public class OrderItemService : IBaseService<OrderItem>, IOrderItemService
+    public class OrderItemService :  IOrderItemService
     {
         public OrderItem CreateItem(OrderItem newItem)
         {
@@ -20,6 +22,11 @@ namespace MintStores.Services.OrderItemService
         }
 
         public OrderItem GetItemById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public OrderItem GetLastItem()
         {
             throw new NotImplementedException();
         }

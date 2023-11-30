@@ -9,6 +9,7 @@
         public const string DeleteBrand = "sp_Brands_DeleteBrand";
         public const string GetAllBrands = "sp_Brands_GetAll";
         public const string GetBrandById = "sp_Brands_GetById";
+        public const string GetLastBrand = "sp_Categories_GetLastBrand";
 
         #endregion
 
@@ -19,6 +20,7 @@
         public const string DeleteCategory = "sp_Categories_DeleteCategory";
         public const string GetAllCategories = "sp_Categories_GetAll";
         public const string GetCategoryById = "sp_Categories_GetById";
+        public const string GetLastCategory = "sp_Categories_GetLastCategory";
 
         #endregion
 
@@ -28,6 +30,8 @@
         public const string DeleteCustomer = "sp_Customers_DeleteCustomer";
         public const string GetAllCustomers = "sp_Customers_GetAll";
         public const string GetCustomerById = "sp_Customers_GetById";
+        public const string GetLastCustomer = "sp_Categories_GetLastCustomer";
+
         #endregion
 
         #region OrderItems
@@ -36,6 +40,7 @@
         public const string DeleteOrderItem = "sp_OrderItems_DeleteOrderItem";
         public const string GetAllOrderItems = "sp_OrderItems_GetAll";
         public const string GetOrderItemById = "sp_OrderItems_GetById";
+        public const string GetLastOrderItem = "sp_Categories_GetLastOrderItem";
 
         #endregion
 
@@ -45,6 +50,7 @@
         public const string DeleteOrder = "sp_Orders_DeleteOrder";
         public const string GetAllOrders = "sp_Orders_GetAll";
         public const string GetOrderById = "sp_Orders_GetById";
+        public const string GetLastOrder = "sp_Categories_GetLastOrder";
 
         #endregion
 
@@ -54,6 +60,10 @@
         public const string DeleteProduct = "sp_Products_DeleteProduct";
         public const string GetAllProducts = "sp_Products_GetAll";
         public const string GetProductById = "sp_Products_GetById";
+        public const string GetLastProduct = "sp_Categories_GetLastProduct";
+
+        public const string GetProductsByCategory = "sp_Products_GetByCategory";
+
 
         #endregion
 
@@ -63,6 +73,7 @@
         public const string DeleteStaff = "sp_Staffs_DeleteStaff";
         public const string GetAllStaffs = "sp_Staffs_GetAll";
         public const string GetStaffById = "sp_Staffs_GetById";
+        public const string GetLastStaff = "sp_Categories_GetLastStaff";
 
         #endregion
 
@@ -72,6 +83,7 @@
         public const string DeleteStore = "sp_Stores_DeleteStore";
         public const string GetAllStores = "sp_Stores_GetAll";
         public const string GetStoreById = "sp_Stores_GetById";
+        public const string GetLastStore = "sp_Categories_GetLastStore";
 
         #endregion
     }

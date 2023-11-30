@@ -1,8 +1,10 @@
-﻿using MintStores.Models;
+﻿using MintStores.Interfaces;
+using MintStores.Interfaces.Services;
+using MintStores.Models;
 
-namespace MintStores.Services.CustomerService
+namespace MintStores.Services
 {
-    public class CustomerService : IBaseService<Customer>, ICustomerService
+    public class CustomerService :  ICustomerService
     {
         public Customer CreateItem(Customer newItem)
         {
@@ -20,6 +22,11 @@ namespace MintStores.Services.CustomerService
         }
 
         public Customer GetItemById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Customer GetLastItem()
         {
             throw new NotImplementedException();
         }

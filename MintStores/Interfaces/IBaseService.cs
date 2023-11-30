@@ -1,13 +1,12 @@
 ﻿namespace MintStores.Interfaces
 {
-    public interface IDataController<T>
+    public interface IBaseService<T>
     {
         IEnumerable<T> GetAllItems();
         T GetItemById(int id);
-        T GetLastItem();
         bool CreateItem(T newItem);
-        bool UpdateItem(int id, T updatedItem);
+        bool UpdateItem(int id, T updateItem);
+        T GetLastItem();
         bool DeleteItem(int id);
-        
     }
 }

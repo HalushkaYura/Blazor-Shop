@@ -1,6 +1,6 @@
 ﻿using MintStores.Models;
 
-namespace MintStores.Services.CategoryService
+namespace MintStores.Interfaces.Services
 {
     public interface ICategoryService
     {

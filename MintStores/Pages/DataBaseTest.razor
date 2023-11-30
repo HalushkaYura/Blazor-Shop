@@ -1,8 +1,12 @@
 ﻿@page "/dbtest"
-@using MintStores.Data
+@using MintStores.Interfaces
+@using MintStores.Interfaces.Services
 @using MintStores.Models
+@using MintStores.Services
 
-@inject DataService DataService
+
+@inject IBaseService<Customer> DataService
+@inject IProductService ProductService
 <PageTitle>My Data</PageTitle>
 <h3>My Data</h3>
 
@@ -11,7 +15,7 @@
     <ul>
         @foreach (var item in data)
         {
-            <li>@item.CategoryId - @item.CategoryName</li>
+            <li>@item.ProductId - @item.ProductName @item.ModelYear --- @item.Price</li>
         }
     </ul>
 }
@@ -21,12 +25,12 @@ else
 }
 
 @code {
-    private IEnumerable<Category> data;
+    private IEnumerable<Product> data;
 
     protected override async Task OnInitializedAsync()
     {
 
-        data = await DataService.GetData();
+        data =  ProductService.GetProductsByCategory(3);
         
     }
 }
