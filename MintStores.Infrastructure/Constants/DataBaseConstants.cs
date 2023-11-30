@@ -9,7 +9,7 @@
         public const string DeleteBrand = "sp_Brands_DeleteBrand";
         public const string GetAllBrands = "sp_Brands_GetAll";
         public const string GetBrandById = "sp_Brands_GetById";
-        public const string GetLastBrand = "sp_Categories_GetLastBrand";
+        public const string GetLastBrand = "sp_Brands_GetLastBrand";
 
         #endregion
 

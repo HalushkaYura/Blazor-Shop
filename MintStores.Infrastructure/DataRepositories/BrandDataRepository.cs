@@ -24,7 +24,12 @@ namespace MintStores.Infrastructure.DataRepositories
             using var connection = GetConnection();
             connection.Open();
 
-            return connection.QueryFirstOrDefault<Brand>(DataBaseConstants.GetBrandById, new { Id = id }, commandType: CommandType.StoredProcedure);
+            var brand = connection.QueryFirstOrDefault<Brand>(
+                sql: "sp_Brands_GetById",
+                param: new { BrandId = id },
+                commandType: CommandType.StoredProcedure
+            );
+            return brand;
         }
 
         public override bool CreateItem(Brand newItem)

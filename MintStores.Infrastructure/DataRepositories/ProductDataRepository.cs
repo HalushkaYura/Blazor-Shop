@@ -36,8 +36,7 @@ namespace MintStores.Infrastructure.DataRepositories
                 newItem.BrandId,
                 newItem.CategoryId,
                 newItem.ModelYear,
-                newItem.Price,
-                newItem.ProdurtURL
+                newItem.Price
             };
 
             var rows = connection.Execute(DataBaseConstants.CreateProduct, parameters, commandType: CommandType.StoredProcedure);
@@ -55,8 +54,7 @@ namespace MintStores.Infrastructure.DataRepositories
                 updatedItem.BrandId,
                 updatedItem.CategoryId,
                 updatedItem.ModelYear,
-                updatedItem.Price,
-                updatedItem.ProdurtURL
+                updatedItem.Price
             };
 
             var rows = connection.Execute(DataBaseConstants.UpdateProduct, parameters, commandType: CommandType.StoredProcedure);

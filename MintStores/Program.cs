@@ -16,6 +16,7 @@ namespace MintStores
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddHttpClient();
 
             //DataControllers
             services.AddScoped<IBaseDataRepository<Brand>, BrandDataRepository>();

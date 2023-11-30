@@ -38,7 +38,12 @@ namespace MintStores.Infrastructure.DataRepositories
             using var connection = GetConnection();
             connection.Open();
 
-            return connection.QueryFirstOrDefault<Category>(DataBaseConstants.GetCategoryById, new { Id = id }, commandType: CommandType.StoredProcedure);
+            var category = connection.QueryFirstOrDefault<Category>(
+                sql: "sp_Categories_GetById",
+                param: new { CategoryId = id },
+                commandType: CommandType.StoredProcedure
+            );
+            return category;
         }
 
         public override bool CreateItem(Category newItem)

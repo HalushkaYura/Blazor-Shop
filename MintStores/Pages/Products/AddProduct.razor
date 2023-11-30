@@ -1,0 +1,67 @@
+﻿@page "/product/add"
+
+
+@using MintStores.Core.Model
+@using MintStores.Core
+@inject IBaseService<Product> _baseProductService
+@inject IBaseService<Brand> _baseBrandService
+@inject IBaseService<Category> _baseCategoryService
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
+
+<h3>"Add Product"</h3>
+
+    <form>
+        <div class="form-group">
+            <label for="ProductName">Product Name:</label>
+            <input type="text" class="form-control" id="ProductName" @bind="product.ProductName" />
+        </div>
+        <div class="form-group">
+            <label for="Price">Price:</label>
+            <input type="number" class="form-control" id="Price" @bind="product.Price" />
+        </div>
+    <div class="form-group">
+        <label for="ModelYear">Model Year:</label>
+        <input type="text" class="form-control" id="ModelYear" @bind="product.ModelYear" />
+    </div>
+        <div class="form-group">
+            <label for="BrandId">Brand:</label>
+            <select class="form-control" id="BrandId" @bind="product.BrandId">
+                @foreach (var brand in brands)
+                {
+                    <option value="@brand.BrandId">@brand.BrandName</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="CategoryId">Category:</label>
+            <select class="form-control" id="CategoryId" @bind="product.CategoryId">
+                @foreach (var category in categories)
+                {
+                    <option value="@category.CategoryId">@category.CategoryName</option>
+                }
+            </select>
+        </div>
+        <button type="button" class="btn btn-primary" @onclick="SaveProduct">Save</button>
+    </form>
+
+
+@code {
+    private Product product;
+    private IEnumerable<Brand> brands;
+    private IEnumerable<Category> categories;
+
+    protected override void OnInitialized()
+    {
+        brands = _baseBrandService.GetAllItems().ToList();
+        categories = _baseCategoryService.GetAllItems().ToList();
+        product = new Product();
+        
+    }
+
+    private void SaveProduct()
+    {
+        _baseProductService.CreateItem(product);
+        NavigationManager.NavigateTo("/dbtest");
+
+    }
+}

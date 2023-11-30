@@ -8,6 +8,5 @@
         public int CategoryId { get; set; }
         public short ModelYear { get; set; }
         public decimal Price { get; set; }
-        public string? ProdurtURL { get; set; }
     }
 }

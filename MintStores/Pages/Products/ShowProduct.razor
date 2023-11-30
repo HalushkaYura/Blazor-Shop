@@ -1,0 +1,79 @@
+﻿@page "/dbtest"
+@using MintStores.Core.Model
+@using MintStores.Core
+@inject IBaseService<Product> _baseProductService
+@inject IBaseService<Brand> _baseBrandService
+@inject IBaseService<Category> _baseCategoryService
+
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
+
+<h3>Product List</h3>
+<div class="col-md-6">
+    <a href='/product/add' class="btn btn-primary" role="button">
+        <i class="fas fa-plus"></i>
+        Add Product
+    </a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Brand</th>
+            <th>Category</th>
+            <th> Actions</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in products)
+        {
+            <tr>
+                <td>@product.ProductId</td>
+                <td>@product.ProductName</td>
+                <td>@product.Price</td>
+                <td>@GetBrandName(product.BrandId)</td>
+                <td>@GetCategoryName(product.CategoryId)</td>
+                <td>
+                    <a href='/products/edit/@product.ProductId' class="btn btn-outline-dark" role="button">
+                        Edit
+                    </a>
+                </td>
+                <td>
+                    <button @onclick="() => DeleteProduct(product.ProductId)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<Product> products;
+
+    protected override void OnInitialized()
+    {
+        products = _baseProductService.GetAllItems().ToList();
+    }
+
+    private string GetBrandName(int brandId)
+    {
+        var brand = _baseBrandService.GetItemById(brandId);
+        return brand?.BrandName ?? "N/A";
+    }
+
+    private string GetCategoryName(int categoryId)
+    {
+        var category = _baseCategoryService.GetItemById(categoryId);
+        return category?.CategoryName ?? "N/A";
+    }
+
+    private void DeleteProduct(int productId)
+    {
+        _baseProductService.DeleteItem(productId);
+        NavigationManager.NavigateTo("/dbtest", true);
+        StateHasChanged();
+    }
+
+}
