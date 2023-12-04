@@ -1,56 +1,82 @@
-﻿@page "/dbtest"
+﻿@page "/product"
 @using MintStores.Core.Model
 @using MintStores.Core
+
+
 @inject IBaseService<Product> _baseProductService
 @inject IBaseService<Brand> _baseBrandService
 @inject IBaseService<Category> _baseCategoryService
-
 @inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
 
 <h3>Product List</h3>
 <div class="col-md-6">
-    <a href='/product/add' class="btn btn-primary" role="button">
-        <i class="fas fa-plus"></i>
-        Add Product
-    </a>
+    <button @onclick="() => SetConfirmCreateOpen(true)" class="btn btn-outline-success m-2">
+        Add Product <span class="oi oi-plus small"></span>
+    </button>
 </div>
-<table class="table">
-    <thead>
-        <tr>
+<table class="table table-bordered table-striped table-dark">
+    <thead class="thead-dark">
+        <tr class="table-primary text-center">
             <th>ID</th>
             <th>Name</th>
             <th>Price</th>
+            <th>Model Year</th>
             <th>Brand</th>
             <th>Category</th>
-            <th> Actions</th>
-            <th></th>
-
+            <th colspan="2">Actions</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody >
         @foreach (var product in products)
         {
             <tr>
                 <td>@product.ProductId</td>
                 <td>@product.ProductName</td>
                 <td>@product.Price</td>
+                <td>@product.ModelYear</td>
                 <td>@GetBrandName(product.BrandId)</td>
                 <td>@GetCategoryName(product.CategoryId)</td>
-                <td>
-                    <a href='/products/edit/@product.ProductId' class="btn btn-outline-dark" role="button">
-                        Edit
-                    </a>
+                <td colspan="2" class="text-center">
+                    <button @onclick="() => ShowEdit(product.ProductId)" class="btn btn-outline-warning m-1">
+                        <span class="oi oi-pencil"></span>
+                    </button>
+                    <button @onclick="() => ShowConfirmDelete(product.ProductId)" class="btn btn-outline-danger m-1">
+                        <span class="oi oi-trash"></span>
+                    </button>
                 </td>
-                <td>
-                    <button @onclick="() => DeleteProduct(product.ProductId)">Delete</button>
-                </td>
+
             </tr>
         }
+  
     </tbody>
 </table>
+@if (IsConfirmDeleteOpen)
+{
+    <ConfirmDelete IsOpen="true"
+                   IsOpenChanged="SetConfirmDeleteOpen"
+                   OnDeleteConfirmed="OnDeleteConfirmed" />
+}
 
+@if (IsConfirmEditOpen)
+{
+    <EditProducts   IsOpenEdit="true"
+                    IsOpenEditChanged="SetConfirmEditOpen"
+                    ProductId="productIdToAction"
+                    OnProductInitialized="OnInitialized" />
+}
+
+@if(IsConfirmCreateOpen)
+{
+    <AddProduct IsOpenCreate="true"
+                IsOpenCreateChanged="SetConfirmCreateOpen"
+                OnProductInitialized="OnInitialized" />
+}
 @code {
     private List<Product> products;
+    private int productIdToAction;
+    private bool IsConfirmDeleteOpen { get; set; }
+    private bool IsConfirmEditOpen { get; set; }
+    private bool IsConfirmCreateOpen { get; set; }
 
     protected override void OnInitialized()
     {
@@ -60,20 +86,52 @@
     private string GetBrandName(int brandId)
     {
         var brand = _baseBrandService.GetItemById(brandId);
-        return brand?.BrandName ?? "N/A";
+        return brand.BrandName;
     }
 
     private string GetCategoryName(int categoryId)
     {
         var category = _baseCategoryService.GetItemById(categoryId);
-        return category?.CategoryName ?? "N/A";
+        return category.CategoryName;
     }
 
-    private void DeleteProduct(int productId)
+
+    private void ShowConfirmDelete(int productId)
     {
-        _baseProductService.DeleteItem(productId);
-        NavigationManager.NavigateTo("/dbtest", true);
-        StateHasChanged();
+        productIdToAction = productId;
+        IsConfirmDeleteOpen = true;
     }
 
+    private void SetConfirmDeleteOpen(bool isOpen)
+    {
+        IsConfirmDeleteOpen = isOpen;
+    }
+
+    private void OnDeleteConfirmed(bool confirmed)
+    {
+        if (confirmed)
+        {
+            _baseProductService.DeleteItem(productIdToAction);
+            StateHasChanged();
+            OnInitialized();
+        }
+        IsConfirmDeleteOpen = false;
+    }
+
+
+    private void ShowEdit(int productId)
+    {
+        productIdToAction = productId;
+        IsConfirmEditOpen = true;
+    }
+
+    private void SetConfirmEditOpen(bool isOpen)
+    {
+        IsConfirmEditOpen = isOpen;
+    }
+
+    private void SetConfirmCreateOpen(bool isOpen)
+    {
+        IsConfirmCreateOpen = isOpen;
+    }
 }

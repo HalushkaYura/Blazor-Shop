@@ -1,9 +1,12 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using MintStores.Core;
 using MintStores.Core.Interfaces.DataRepositories;
 using MintStores.Core.Model;
 using MintStores.Core.Services;
 using MintStores.Data;
 using MintStores.Infrastructure.DataRepositories;
+using MintStores.Infrastructure.Validations;
 using MintStores.Services;
 
 namespace MintStores
@@ -39,6 +42,11 @@ namespace MintStores
             services.AddScoped<IBaseService<Staff>, BaseService<Staff>>();
             services.AddScoped<IBaseService<Store>, BaseService<Store>>();
             services.AddScoped<IProductService, ProductService>();
+
+            //Validators
+            services.AddScoped<IValidator<Product>, ProductsValidator>();
+            services.AddValidatorsFromAssemblyContaining<ProductsValidator>();
+            services.AddFluentValidation();
 
         }
 

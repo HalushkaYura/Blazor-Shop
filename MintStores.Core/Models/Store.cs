@@ -1,8 +1,11 @@
-﻿namespace MintStores.Core.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MintStores.Core.Model
 {
     public class Store : IBaseModel
     {
         public int StoreId { get; set; }
+        [Required]
         public string StoreName { get; set; }
         public string? Phone { get; set; }
         public string? Email { get; set; }

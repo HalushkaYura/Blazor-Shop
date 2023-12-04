@@ -1,83 +1,118 @@
-﻿@page "/products/edit/{productId:int}"
-
-@using MintStores.Core.Model
+﻿@using FluentValidation
 @using MintStores.Core
+@using MintStores.Core.Model
 @inject IBaseService<Product> _baseProductService
 @inject IBaseService<Brand> _baseBrandService
 @inject IBaseService<Category> _baseCategoryService
-@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
+@inject IValidator<Product> ProductValidator
 
-<h3>Edit Product</h3>
+<div class="modal fade show d-block bg-white bg-opacity-50">
+    <div class="modal-dialog ">
+        <div class="modal-content">
 
-@if (product != null)
-{
-    <form>
-        <div class="form-group">
-            <label for="ProductName">Product Name:</label>
-            <input type="text" class="form-control" id="ProductName" @bind="product.ProductName" />
-        </div>
-        <div class="form-group">
-            <label for="Price">Price:</label>
-            <input type="number" class="form-control" id="Price" @bind="product.Price" />
-        </div>
-        <div class="form-group">
-            <label for="BrandId">Brand:</label>
-            <select class="form-control" id="BrandId" @bind="product.BrandId">
-                @foreach (var brand in brands)
+            <div class="modal-header  bg-warning " style="height: 50px;">
+                <h2 class="modal-title text-center ms-0">Edit product</h2>
+                <button type="button" class="btn-close" @onclick="CloseModal"></button>
+            </div>
+            <div class="modal-body">
+            <EditForm Model="product" OnValidSubmit="SaveProduct">
+            <DataAnnotationsValidator />
+            <FluentValidationValidator />
+
+            <div class="form-group">
+                <label for="ProductName">Product Name:</label>
+                <InputText class="form-control" id="ProductName" @bind-Value="product.ProductName" />
+                @if (string.IsNullOrWhiteSpace(product.ProductName))
                 {
-                    <option value="@brand.BrandId">@brand.BrandName</option>
+                    <div class="text-danger">Product Name is required.</div>
                 }
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="CategoryId">Category:</label>
-            <select class="form-control" id="CategoryId" @bind="product.CategoryId">
-                @foreach (var category in categories)
-                {
-                    <option value="@category.CategoryId">@category.CategoryName</option>
-                }
-            </select>
-        </div>
-        <button type="button" class="btn btn-primary" @onclick="SaveProduct">Save</button>
-    </form>
-}
-else
-{
-    <p>Product not found.</p>
-}
+            </div>
 
-<button @onclick="NavigateToProductList">Back to Product List</button>
+            <div class="form-group">
+                <label for="Price">Price:</label>
+                <InputNumber class="form-control" id="Price" @bind-Value="product.Price" />
+                <ValidationMessage For="@(() => product.Price)" />
+                @if (product.Price <= 0)
+                {
+                    <div class="text-danger">Price must be greater than 0.</div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="ModelYear">Model Year:</label>
+                <InputNumber class="form-control" id="ModelYear" @bind-Value="product.ModelYear" />
+                <ValidationMessage For="@(() => product.ModelYear)" />
+                @if (product.ModelYear <= 0)
+                {
+                    <div class="text-danger">Model Year must be greater than 0.</div>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="BrandId">Brand:</label>
+                <InputSelect class="form-control" id="BrandId" @bind-Value="product.BrandId">
+                    @foreach (var brand in brands)
+                    {
+                        <option value="@brand.BrandId">@brand.BrandName</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => product.BrandId)" />
+            </div>
+
+            <div class="form-group">
+                <label for="CategoryId">Category:</label>
+                <InputSelect class="form-control" id="CategoryId" @bind-Value="product.CategoryId">
+                    @foreach (var category in categories)
+                    {
+                        <option value="@category.CategoryId">@category.CategoryName</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => product.CategoryId)" />
+            </div>
+                    <div class="modal-footer d-flex justify-content-center" style="height: 60px;">
+                        <button type="button" class="btn btn-secondary" @onclick="CloseModal">Сancel</button>
+                        <button type="button" class="btn btn-warning" @onclick="SaveProduct">Update</button>
+                    </div>
+        </EditForm>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 
 @code {
     private Product product;
     private IEnumerable<Brand> brands;
     private IEnumerable<Category> categories;
-    [Parameter]
-    public int ProductId { get; set; }
+
+    [Parameter] public int ProductId { get; set; }
+    [Parameter] public bool IsOpenEdit { get; set; }
+    [Parameter] public EventCallback<bool> IsOpenEditChanged { get; set; }
+    [Parameter] public EventCallback<bool> OnProductInitialized { get; set; }
+
 
     protected override void OnInitialized()
     {
-        // Отримання productId з URL
-        
-
         product = _baseProductService.GetItemById(ProductId);
-
-        // Завантаження брендів та категорій при ініціалізації компонента
         brands = _baseBrandService.GetAllItems().ToList();
         categories = _baseCategoryService.GetAllItems().ToList();
     }
-
+    private void CloseModal()
+    {
+        IsOpenEdit = false;
+        IsOpenEditChanged.InvokeAsync(false);
+    }
     private void SaveProduct()
     {
-        // Оновлення продукта
-        _baseProductService.UpdateItem(ProductId, product);
+        var validationResult = ProductValidator.Validate(product);
 
-        // Перенаправлення на сторінку списку продуктів після збереження
-        NavigateToProductList();
-    }
-
-    private void NavigateToProductList()
-    {
-        NavigationManager.NavigateTo("/dbtest", true);
+        if (validationResult.IsValid)
+        {
+            _baseProductService.UpdateItem(ProductId, product);
+            StateHasChanged();
+            OnProductInitialized.InvokeAsync();
+            CloseModal();
+        }
     }
 }

@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>MintStoreDb</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{688b8407-3d69-470d-a51c-8820c0994944}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>MintStoreDb</RootNamespace>
+    <AssemblyName>MintStoreDb</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Brands.sql" />
+    <Build Include="dbo\Tables\Categories.sql" />
+    <Build Include="dbo\Tables\Customers.sql" />
+    <Build Include="dbo\Tables\OrderItems.sql" />
+    <Build Include="dbo\Tables\Orders.sql" />
+    <Build Include="dbo\Tables\Products.sql" />
+    <Build Include="dbo\Tables\Staffs.sql" />
+    <Build Include="dbo\Tables\Stores.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Customers_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Categories_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Brands_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Categories_GetLastCategory.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Categories_GetLastCustomer.sql" />
+    <Build Include="dbo\Stored Procedures\sp_OrderItems_GetLastOrderItem.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Products_GetLastProduct.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Staffs_GetLastStaff.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Stores_GetLastStore.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Brands_GetLastBrand.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Products_GetByCategory.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Brands_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Categories_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Products_UpdateProduct.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Categories_UpdateCategory.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Categories_CreateCategory.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Categories_DeleteCategory.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Products_DeleteProduct.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Stores_CreateStore.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Stores_UpdateStore.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Stores_DeleteStore.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Staffs_CreateStaff.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Staffs_UpdateStaff.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Staffs_DeleteStaff.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Brands_CreateBrand.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Brands_UpdateBrand.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Brands_DeleteBrand.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Orders_CreateOrder.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Orders_UpdateOrder.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Orders_DeleteOrder.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Customers_UpdateCustomer.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Customers_CreateCustomer.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Customers_DeleteCustomer.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Products_CreateProduct.sql" />
+    <Build Include="dbo\Stored Procedures\sp_OrderItems_CreateOrderItem.sql" />
+    <Build Include="dbo\Stored Procedures\sp_OrderItems_UpdateOrderItem.sql" />
+    <Build Include="dbo\Stored Procedures\sp_OrderItems_DeleteOrderItem.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Stores_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Stores_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Staffs_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Staffs_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Orders_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Orders_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\sp_OrderItems_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\sp_OrderItems_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Products_GetById.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Products_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Customers_GetAll.sql" />
+  </ItemGroup>
+</Project>
